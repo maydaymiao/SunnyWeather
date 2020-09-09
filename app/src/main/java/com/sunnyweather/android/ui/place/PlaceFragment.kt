@@ -30,7 +30,7 @@ class PlaceFragment: Fragment() {
         super.onActivityCreated(savedInstanceState)
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
-        adapter = PlaceAdapter(viewModel.placeList)
+        adapter = PlaceAdapter(this, viewModel.placeList)
         recyclerView.adapter = adapter
 
         searchPlaceEdit.addTextChangedListener { editable ->
@@ -48,6 +48,7 @@ class PlaceFragment: Fragment() {
         viewModel.placeLiveData.observe(viewLifecycleOwner, Observer { result ->
             val places = result.getOrNull()
             if (places != null) {
+//                [Place(name=上海市, location=Location(lng=121.473701, lat=31.230416), address=中国上海市), Place(name=上海市, location=Location(lng=121.473658, lat=31.230378), address=中国 上海市 黄浦区 黄浦区)]
                 Log.d("myTag", places.toString())
                 recyclerView.visibility = View.VISIBLE
                 bgImageView.visibility = View.GONE
